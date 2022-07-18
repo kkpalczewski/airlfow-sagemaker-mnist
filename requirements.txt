@@ -1,17 +1,6 @@
 apache-airflow[celery]==2.3.2 --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.3.2/constraints-3.7.txt
 apache-airflow-providers-amazon # testing
-pytest
-pytest-mock
-pytest-cov
-pytest-helpers-namespace
-requests-mock
-moto
-# linting
-black
-pylint
-ipdb
 psycopg2-binary
-flake8
 numpy
 sagemaker
 pydevd-pycharm~=213.6461.6

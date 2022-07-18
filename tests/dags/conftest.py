@@ -16,7 +16,7 @@ def end_date():
 
 @pytest.fixture
 def mnist_download_address():
-    return "https://github.com/mnielsen/neural-networks-and-deep-learning/raw/master/data/mnist.pkl.gz"
+    return "https://github.com/mnielsen/neural-networks-and-deep-learning/raw/master/data/mnist.pkl.gz"  # pylint:disable=line-too-long # noqa: E501
 
 
 @pytest.fixture
@@ -34,6 +34,23 @@ def mnist_contents_test(mnist_contents_test_path) -> bin:
 @pytest.fixture
 def mnist_raw_path(start_date):
     return f"raw/{start_date.strftime('%Y%m%d')}.pkl.gz"
+
+
+@pytest.fixture
+def mnist_train_data_path():
+    return Path(os.path.dirname(os.path.abspath(__file__))) / "contents/mnist_train"
+
+
+@pytest.fixture
+def mnist_train_data(mnist_train_data_path) -> bin:
+    with open(mnist_train_data_path, "rb") as f:
+        mnist_train_data = f.read()
+    return mnist_train_data
+
+
+@pytest.fixture
+def mnist_extracted_path(start_date):
+    return f"extracted/{start_date.strftime('%Y%m%d')}"
 
 
 @pytest.fixture

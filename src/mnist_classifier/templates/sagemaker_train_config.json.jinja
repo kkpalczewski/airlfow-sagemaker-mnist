@@ -1,0 +1,28 @@
+{
+        "TrainingJobName": "mnistclassifier-{{execution_date}}",
+        "AlgorithmSpecification": {
+            "TrainingImage": "{{mnist_training_image}}",
+            "TrainingInputMode": "File"
+        },
+        "HyperParameters": {"k": "10", "feature_dim": "784"},
+        "InputDataConfig": [
+            {
+                "ChannelName": "train",
+                "DataSource": {
+                    "S3DataSource": {
+                        "S3DataType": "S3Prefix",
+                        "S3Uri": "s3://{{mnist_bucket}}/{{save_extracted_path}}",
+                        "S3DataDistributionType": "FullyReplicated"
+                    }
+                }
+            }
+        ],
+        "OutputDataConfig": {"S3OutputPath": "s3://{{mnist_bucket}}/mnistclassifier-output"},
+        "ResourceConfig": {
+            "InstanceType": "ml.c4.xlarge",
+            "InstanceCount": 1,
+            "VolumeSizeInGB": 10
+        },
+        "RoleArn": "{{model_arn_role}}",
+        "StoppingCondition": {"MaxRuntimeInSeconds": "{{24 * 60 * 60}}"}
+    }

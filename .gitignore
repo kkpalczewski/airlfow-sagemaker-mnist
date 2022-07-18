@@ -20,7 +20,7 @@ profile_default/
 ipython_config.py
 
 # Environments
-.env
+.env*
 .venv
 
 # PyCharm
@@ -37,7 +37,6 @@ airflow
 unittests.cfg
 unittests.db
 logs
-plugins
 
 # cache
 .pytest_cache

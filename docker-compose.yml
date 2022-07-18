@@ -1,0 +1,71 @@
+version: "3.7"
+# ====================================== AIRFLOW ENVIRONMENT VARIABLES =======================================
+x-environment: &airflow_environment
+  # Airflow settings.
+  - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+  - AIRFLOW__CORE__LOAD_DEFAULT_CONNECTIONS=False
+  - AIRFLOW__CORE__LOAD_EXAMPLES=False
+  - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflow
+  - AIRFLOW__CORE__STORE_DAG_CODE=True
+  - AIRFLOW__CORE__STORE_SERIALIZED_DAGS=True
+  - AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
+  - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
+  - AIRFLOW__WEBSERVER__RBAC=False
+  # AWS settings.
+  - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+  - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+  - AWS_DEFAULT_REGION=eu-west-1
+  - AIRFLOW_VAR_MNIST_BUCKET=${AWS_ACCOUNT_ID}-mnist-bucket
+  - AIRFLOW_VAR_MODEL_ARN_ROLE=${AIRFLOW_VAR_MODEL_ARN_ROLE}
+  - AIRFLOW_VAR_MNIST_TRAINING_IMAGE=438346466558.dkr.ecr.eu-west-1.amazonaws.com/kmeans:1
+x-airflow-image: &airflow_image apache/airflow:2.3.2-python3.8
+# ====================================== /AIRFLOW ENVIRONMENT VARIABLES ======================================
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    ports:
+      - "5432:5432"
+  init:
+    image: *airflow_image
+    depends_on:
+      - postgres
+    environment: *airflow_environment
+    entrypoint: /bin/bash
+    command: -c 'airflow db upgrade && sleep 5 && airflow users create --username admin --password admin --firstname Anonymous --lastname Admin --role Admin --email admin@example.org'
+  webserver:
+    image: *airflow_image
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8080"
+    volumes:
+      - logs:/opt/airflow/logs
+    environment: *airflow_environment
+    command: webserver
+  scheduler:
+    image: *airflow_image
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - data:/data
+      - logs:/opt/airflow/logs
+      - ./src:/opt/airflow/src
+      - ./setup.py:/opt/airflow/setup.py
+      - ./requirements.txt:/opt/airflow/requirements.txt
+    environment: *airflow_environment
+    entrypoint: [ "/bin/sh" ]
+    command: [ "-c",
+        "pip install -r /opt/airflow/requirements.txt && \
+        pip install -e /opt/airflow && \
+        airflow scheduler" ]
+
+volumes:
+  data:
+  logs:
