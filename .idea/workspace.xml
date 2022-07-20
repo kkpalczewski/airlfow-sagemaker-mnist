@@ -2,30 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35e7f7f8-a202-4722-8a84-2721d36af2e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/dags/mnist_classifier_dag.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mnist_classifier/model/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mnist_classifier/model/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mnist_classifier/plugins/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mnist_classifier/plugins/operators/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mnist_classifier/templates/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mnist_classifier/templates/sagemaker_train_config.json.jinja" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/plugins/operators/test_render_templates_operator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/src/mnist_classifier/model/test_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/templates/fixtures/templates_fixture.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.template" beforeDir="false" afterPath="$PROJECT_DIR$/.env.template" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/airlfow-sagemaker-mnist.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/airlfow-sagemaker-mnist.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dags/mnist_classifier.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements-dev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements-dev.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/common.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mnist_classifier/operators/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dags/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dags/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dags/contents/mnist.pkl.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/dags/test_mnist_classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dags/test_mnist_classifier.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,6 +260,8 @@
     <list>
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment (2)" />
+      <item itemvalue="Docker.docker-compose.yml: Compose Deployment (3)" />
+      <item itemvalue="Docker.docker-compose.yml: Compose Deployment (4)" />
       <item itemvalue="Python.Remote Dag Debug" />
       <item itemvalue="Python.check_aws_connection" />
       <item itemvalue="Python.main" />
@@ -289,8 +269,6 @@
       <item itemvalue="Python Debug Server.Unnamed" />
       <item itemvalue="Python Debug Server.Unnamed (1)" />
       <item itemvalue="Python Debug Server.airflow debug" />
-      <item itemvalue="Docker.docker-compose.yml: Compose Deployment (3)" />
-      <item itemvalue="Docker.docker-compose.yml: Compose Deployment (4)" />
       <item itemvalue="Python tests.Python tests for test_mnist_classifier.test_dag" />
     </list>
     <recent_temporary>
@@ -319,6 +297,7 @@
       <workItem from="1657639630545" duration="22894000" />
       <workItem from="1658123695167" duration="27702000" />
       <workItem from="1658151938183" duration="5588000" />
+      <workItem from="1658309689215" duration="84000" />
     </task>
     <servers />
   </component>
