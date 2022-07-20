@@ -10,7 +10,7 @@ from airflow.models import Variable
 from sagemaker.amazon.common import write_numpy_to_dense_tensor
 from mnist_classifier.plugins.operators.render_templates_operator import RenderTemplatesOperator
 from airflow.providers.amazon.aws.operators.sagemaker import (
-    SageMakerTrainingOperator,
+    SageMakerTrainingOperator, SageMakerEndpointOperator
 )
 
 
@@ -89,8 +89,8 @@ def mnist_classifier_dag():
         save_extracted_path="extracted/{{ds_nodash}}",
     )
 
-    render_templates_task = RenderTemplatesOperator(
-        task_id="render_template",
+    render_train_config = RenderTemplatesOperator(
+        task_id="render_train_config",
         template_name="sagemaker_train_config.json.jinja",
         template_params={
             "execution_date": "{{execution_date.strftime('%Y-%m-%d-%H-%M-%S')}}",
@@ -100,13 +100,33 @@ def mnist_classifier_dag():
             "mnist_training_image": Variable.get("mnist_training_image")
         }
     )
+
     sagemaker_train_model = SageMakerTrainingOperator(
         task_id="sagemaker_train_model",
-        config="{{ti.xcom_pull(task_ids='render_template')}}",
+        config="{{ti.xcom_pull(task_ids='render_train_config')}}",
         print_log=False,
         check_interval=10
     )
 
-    extract_mnist_task >> render_templates_task >> sagemaker_train_model
+    render_deploy_config = RenderTemplatesOperator(
+        task_id="render_deploy_config",
+        template_name="sagemaker_deploy_config.json.jinja",
+        template_params={
+            "execution_date": "{{execution_date.strftime('%Y-%m-%d-%H-%M-%S')}}",
+            "mnist_bucket": Variable.get("mnist_bucket"),
+            "model_arn_role": Variable.get("model_arn_role"),
+            "mnist_training_image": Variable.get("mnist_training_image")
+        }
+    )
+
+    sagemaker_deploy_model = SageMakerEndpointOperator(
+        task_id="sagemaker_deploy_model",
+        operation="update",
+        wait_for_completion=True,
+        config="{{ti.xcom_pull(task_ids='render_deploy_config')}}"
+    )
+
+    extract_mnist_task >> render_train_config >> sagemaker_train_model >> render_deploy_config >> sagemaker_deploy_model
+
 
 dag = mnist_classifier_dag()

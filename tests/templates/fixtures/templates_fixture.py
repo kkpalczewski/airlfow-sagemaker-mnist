@@ -23,6 +23,12 @@ def templates_all_templates_templated_fields() -> Dict:
             "model_arn_role": Variable.get("model_arn_role"),
             "save_extracted_path": "extarcted_path",
             "mnist_training_image": Variable.get('mnist_training_image')
+        },
+        "sagemaker_deploy_config.json.jinja": {
+            "execution_date": datetime.today(),
+            "mnist_bucket": Variable.get('mnist_bucket'),
+            "model_arn_role": Variable.get("model_arn_role"),
+            "mnist_training_image": Variable.get('mnist_training_image')
         }
     }
 

@@ -4,3 +4,4 @@ psycopg2-binary
 numpy
 sagemaker
 pydevd-pycharm~=213.6461.6
+Pillow

@@ -10,7 +10,7 @@ import os
 os.environ["AIRFLOW_VAR_MNIST_BUCKET"] = "mnist-bucket"
 os.environ["AIRFLOW_VAR_MNIST_TRAINING_IMAGE"] = "438346466558.dkr.ecr.eu-west-1.amazonaws.com/kmeans:1"
 os.environ[
-    "AIRFLOW_VAR_MODEL_ARN_ROLE"] = "arn:aws:iam::111222333444:role/service-role/AmazonSageMaker-ExecutionRole-20180905T153196"
+    "AIRFLOW_VAR_MODEL_ARN_ROLE"] = "arn:aws:iam::111222333444:role/service-role/AmazonSageMaker-ExecutionRole"
 
 from dags.mnist_classifier_dag import download_mnist_to_s3, extract_mnist, dag
 

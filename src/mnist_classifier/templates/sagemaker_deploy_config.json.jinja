@@ -1,0 +1,25 @@
+{
+        "Model": {
+            "ModelName": "mnistclassifier-{{execution_date}}",
+            "PrimaryContainer": {
+                "Image": "{{mnist_training_image}}",
+                "ModelDataUrl": "s3://{{mnist_bucket}}/mnistclassifier-output/mnistclassifier-{{execution_date}}/output/model.tar.gz"
+            },
+            "ExecutionRoleArn": "{{model_arn_role}}"
+        },
+        "EndpointConfig": {
+            "EndpointConfigName": "mnistclassifier-{{execution_date}}",
+            "ProductionVariants": [
+                {
+                    "InitialInstanceCount": 1,
+                    "InstanceType": "ml.t2.medium",
+                    "ModelName": "mnistclassifier",
+                    "VariantName": "AllTraffic"
+                }
+            ]
+        },
+        "Endpoint": {
+            "EndpointConfigName": "mnistclassifier-{{execution_date}}",
+            "EndpointName": "mnistclassifier"
+        }
+    }

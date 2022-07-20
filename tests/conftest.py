@@ -102,6 +102,7 @@ def operator_test(
     assert len(dagruns) == 1
     assert dagruns[0].get_task_instance("test_task").state == State.SUCCESS
 
+
 @pytest.helpers.register
 def get_plugins(plugin_dir: Union[str, Path], root_dir: str = "tests"):
     """Get plugins from specific dirs. Used in pytest_plugins."""
